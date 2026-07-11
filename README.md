@@ -46,3 +46,16 @@ This project is a comprehensive demonstration of a modern e-commerce platform bu
    ```bash
    python manage.py runserver
    ```
+
+## Deployment on Render
+
+1. **Connect GitHub**: Connect this repository to your Render account.
+2. **Web Service Settings**:
+   - **Build Command**: `./build.sh`
+   - **Start Command**: `gunicorn mysite.wsgi:application --chdir mysite`
+3. **Environment Variables**:
+   - `SECRET_KEY`: Your unique production secret key.
+   - `DEBUG`: `False`
+   - `DATABASE_URL`: Your Render PostgreSQL connection string.
+   - `GOOGLE_CLIENT_ID`: Your Google OAuth Client ID.
+   - `GOOGLE_CLIENT_SECRET`: Your Google OAuth Client Secret.
