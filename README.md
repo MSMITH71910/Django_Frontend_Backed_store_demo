@@ -59,3 +59,6 @@ This project is a comprehensive demonstration of a modern e-commerce platform bu
    - `DATABASE_URL`: Your Render PostgreSQL connection string.
    - `GOOGLE_CLIENT_ID`: Your Google OAuth Client ID.
    - `GOOGLE_CLIENT_SECRET`: Your Google OAuth Client Secret.
+
+### 📝 Important Note on Media Files
+Since this demo is hosted on Render's ephemeral filesystem, any product images you upload via the admin panel will be **deleted whenever the site restarts or you deploy new code**. For a permanent production store, you would connect this to a persistent storage service like AWS S3 or Cloudinary. For now, simply re-upload your product photos if they appear broken after a new deployment.

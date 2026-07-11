@@ -149,13 +149,25 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Ensure media directories exist
+if not os.path.exists(MEDIA_ROOT):
+    os.makedirs(MEDIA_ROOT, exist_ok=True)
+images_dir = os.path.join(MEDIA_ROOT, 'images')
+if not os.path.exists(images_dir):
+    os.makedirs(images_dir, exist_ok=True)
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000', 'https://*.onrender.com']
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:8000', 
+    'http://localhost:8000', 
+    'https://*.onrender.com',
+    'https://django-frontend-backed-store-demo.onrender.com'
+]
 
 if not DEBUG:
     CSRF_COOKIE_HTTPONLY = True

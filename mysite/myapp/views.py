@@ -22,8 +22,8 @@ def deals(request):
     products = Product.objects.all()
     pattern = re.compile(re.escape("mechanical switch"), re.IGNORECASE)
     for product in products:
-        product.name = pattern.sub('<span class="highlight">\g<0></span>', product.name)
-        product.description = pattern.sub('<span class="highlight">\g<0></span>', product.description)
+        product.name = pattern.sub(r'<span class="highlight">\g<0></span>', product.name)
+        product.description = pattern.sub(r'<span class="highlight">\g<0></span>', product.description)
     return render(request, 'myapp/deals.html', {'products': products})
 
 def customer_service(request):
