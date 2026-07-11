@@ -1,28 +1,30 @@
-# Django E-commerce: Full-Stack Store Demo
+# ComputerStore - My Django E-commerce Demo
 
-This project is a comprehensive demonstration of a modern e-commerce platform built with Django. It showcases a complete shopping workflow, from product discovery to secure checkout and order management, designed with a focus on clean architecture and responsive user experience.
+This is my full-stack e-commerce project built with Django. I created this to show off what a modern store can do, from browsing cool tech like mechanical keyboards to a full checkout and return system. I focused on making the code clean, the design responsive, and the data management efficient.
 
-## Key Features
+## What it can do:
 
-### 🛍️ Shopping Experience
-- **Dynamic Product Catalog**: Browse products with real-time stock tracking and deep-link detail pages.
-- **Interactive Deals Page**: Highlighted "Today's Deals" with case-insensitive search optimizations.
-- **Robust Cart System**: Add, remove, and manage items seamlessly, supporting both authenticated users and guest sessions.
-- **Customer Ratings & Reviews**: Integrated feedback system allowing customers to leave star ratings and comments on products.
+### 🛍️ The Shopping Experience
+- **Real-Time Product Catalog**: I built a dynamic catalog that tracks stock automatically.
+- **"Today's Deals" with Style**: I added a special highlighting feature for "mechanical switches" to make them stand out.
+- **Smart Cart**: You can add and remove items whether you're signed in or just browsing as a guest.
+- **Customer Feedback**: I implemented a star rating and review system so people can share their thoughts.
 
-### 🔐 Authentication & Accounts
-- **Unified Registration**: A streamlined signup flow that captures all essential customer info (shipping, contact, and payment placeholders) in one step.
-- **Google "Add Account" Integration**: Support for social login using Google for a modern, frictionless experience.
-- **Secure Profile Management**: Personal dashboard to update shipping addresses and payment details.
+### 🔐 Accounts & Security
+- **One-Step Registration**: When you sign up, you can enter all your info—name, address, phone, and even payment placeholders—in one simple form.
+- **Google Login**: I integrated Google OAuth so users can sign in with their Google accounts instantly.
+- **Your Profile**: A dedicated space to manage your shipping info and payment methods.
 
-### 📦 Order Management & Logistics
-- **Tracking & Returns**: Functional package tracking and a "Return or Replace" system that automatically handles inventory restocking and order status updates.
-- **Dynamic Delivery Location**: Session-based location system allowing users to change their country and state from the header.
+### 📦 Logistics & Support
+- **Package Tracking**: You can actually see the status of your order in real-time.
+- **Returns & Replacements**: If something isn't right, the system handles returns by putting items back into inventory and updating the order status automatically.
+- **Global Delivery**: I added a location selector in the header so you can change your delivery country and state on the fly.
 
-### 📊 Administrative Backend
-- **Staff Dashboard**: High-level business metrics including total revenue, order volume, and shipping statuses.
-- **Inventory Control**: Real-time stock alerts and summaries of top-selling products.
-- **Transaction History**: Detailed view of all customer transactions for efficient backend management.
+### 📊 Backend Admin Dashboard
+I built a custom dashboard for staff to keep an eye on the business:
+- **Financial Metrics**: Track total revenue and order volume.
+- **Order Status**: See what's shipped, pending, or returned.
+- **Inventory Tracking**: A list of exactly what's left to sell and which items are the top sellers.
 
 ## Technical Stack
 - **Framework**: Django
