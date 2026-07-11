@@ -1,0 +1,20 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Customer Service - ComputerStore{% endblock %}
+
+{% block content %}
+<div style="background: white; padding: 20px; border-radius: 4px;">
+    <h1>Customer Service</h1>
+    <p>How can we help you today?</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px;">
+            <h3>Your Orders</h3>
+            <p>Track packages, edit or cancel orders.</p>
+        </div>
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px;">
+            <h3>Returns & Refunds</h3>
+            <p>Return or replace items.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

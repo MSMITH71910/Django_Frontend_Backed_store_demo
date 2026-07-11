@@ -1,0 +1,78 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Create Account - ComputerStore{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 40px auto; background: white; padding: 30px; border: 1px solid #ddd; border-radius: 8px;">
+    <h1 style="font-size: 1.8rem; margin-bottom: 20px;">Create Account</h1>
+    <form method="post">
+        {% csrf_token %}
+        <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-top: 20px;">Account Details</h3>
+        
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px;">First Name</label>
+            <input type="text" name="first_name" required style="width: 100%; padding: 8px; border: 1px solid #888; border-radius: 3px;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px;">Last Name</label>
+            <input type="text" name="last_name" required style="width: 100%; padding: 8px; border: 1px solid #888; border-radius: 3px;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px;">Email</label>
+            <input type="email" name="email" required style="width: 100%; padding: 8px; border: 1px solid #888; border-radius: 3px;">
+        </div>
+
+        {% for field in u_form %}
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div style="color: red; font-size: 0.8rem;">{{ field.errors }}</div>
+                {% endif %}
+                {% if field.help_text %}
+                    <p style="font-size: 0.75rem; color: #565959;">{{ field.help_text|safe }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-top: 30px;">Shipping & Contact</h3>
+        {% for field in p_form %}
+            {% if forloop.counter <= 6 %}
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div style="color: red; font-size: 0.8rem;">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-top: 30px;">Payment Information (Placeholder)</h3>
+        {% for field in p_form %}
+            {% if forloop.counter > 6 %}
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px;">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div style="color: red; font-size: 0.8rem;">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <button type="submit" class="btn-store" style="width: 100%; padding: 12px; margin-top: 20px; font-size: 1rem;">Create your ComputerStore account</button>
+    </form>
+
+    <div style="margin-top: 20px; text-align: center;">
+        <p style="font-size: 0.8rem; color: #565959;">or</p>
+        {% load socialaccount %}
+        <a href="{% provider_login_url 'google' %}" style="display: flex; align-items: center; justify-content: center; padding: 10px; border: 1px solid #adb1b8; border-radius: 4px; background: white; color: #565959; text-decoration: none; font-weight: bold; margin-top: 10px;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_Logo.svg" alt="Google" style="width: 18px; margin-right: 10px;">
+            Continue with Google
+        </a>
+    </div>
+    <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+    <p style="font-size: 0.9rem;">Already have an account? <a href="{% url 'login' %}" style="color: #007185;">Sign in</a></p>
+</div>
+{% endblock %}

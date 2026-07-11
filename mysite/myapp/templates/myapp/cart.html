@@ -1,0 +1,44 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Shopping Cart - ComputerStore{% endblock %}
+
+{% block content %}
+<div style="background: white; padding: 20px; border-radius: 4px;">
+    <h1>Shopping Cart</h1>
+    {% if cart.items.all %}
+        <div style="display: flex; gap: 20px;">
+            <div style="flex: 3;">
+                {% for item in cart.items.all %}
+                    <div style="display: flex; border-bottom: 1px solid #ddd; padding: 20px 0;">
+                        <div style="width: 150px;">
+                            {% if item.product.image %}
+                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="max-width: 100%;">
+                            {% endif %}
+                        </div>
+                        <div style="flex: 1; margin-left: 20px;">
+                            <h3>{{ item.product.name }}</h3>
+                            <p style="color: #007600;">In Stock</p>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span>Qty: {{ item.quantity }}</span>
+                                <a href="{% url 'remove_from_cart' item.id %}" style="color: #007185; font-size: 0.9rem;">Delete</a>
+                            </div>
+                        </div>
+                        <div style="text-align: right; font-weight: bold;">
+                            ${{ item.product.price }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div style="flex: 1; background: #f3f3f3; padding: 20px; border-radius: 4px; align-self: flex-start;">
+                <h3>Subtotal ({{ cart.items.count }} items): <b>${{ cart.total_price }}</b></h3>
+                <a href="{% url 'checkout' %}" class="btn-store" style="display: block; text-align: center; text-decoration: none; padding: 10px; margin-top: 20px;">Proceed to Checkout</a>
+            </div>
+        </div>
+    {% else %}
+        <div style="padding: 40px; text-align: center;">
+            <h2>Your ComputerStore Cart is empty.</h2>
+            <p>Check out our <a href="{% url 'deals' %}" style="color: #007185;">Today's Deals</a>!</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

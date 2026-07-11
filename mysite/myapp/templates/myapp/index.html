@@ -1,0 +1,35 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+<div class="product-list">
+    {% for product in products %}
+        <div class="product-item">
+            <div class="product-image-container">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% else %}
+                    <div style="color: #ccc;">No image</div>
+                {% endif %}
+            </div>
+            <a href="{% url 'product_detail' product.slug %}" class="product-title">{{ product.name }}</a>
+            
+            <div class="product-price">
+                <span>$</span>{{ product.price }}
+            </div>
+
+            <div class="prime-badge">✓ prime</div>
+            
+            <div style="font-size: 0.8rem; color: #565959; margin-bottom: 10px;">
+                FREE delivery <b>Tomorrow</b>
+            </div>
+
+            <a href="{% url 'add_to_cart' product.slug %}" class="btn-store" style="display: block; text-align: center; text-decoration: none;">Add to Cart</a>
+        </div>
+    {% empty %}
+        <div style="grid-column: 1 / -1; background: white; padding: 20px; text-align: center;">
+            <h2>No products found</h2>
+            <p>Your search returned no results.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

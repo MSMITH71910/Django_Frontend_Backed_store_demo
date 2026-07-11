@@ -1,0 +1,34 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Sign In - ComputerStore{% endblock %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 40px auto; background: white; padding: 30px; border: 1px solid #ddd; border-radius: 8px;">
+    <h1 style="font-size: 1.8rem; margin-bottom: 20px;">Sign In</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div style="color: red; font-size: 0.8rem;">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn-store" style="width: 100%; padding: 10px; margin-top: 10px;">Sign In</button>
+    </form>
+
+    <div style="margin-top: 20px; text-align: center;">
+        <p style="font-size: 0.8rem; color: #565959;">or</p>
+        {% load socialaccount %}
+        <a href="{% provider_login_url 'google' %}" style="display: flex; align-items: center; justify-content: center; padding: 10px; border: 1px solid #adb1b8; border-radius: 4px; background: white; color: #565959; text-decoration: none; font-weight: bold; margin-top: 10px;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_Logo.svg" alt="Google" style="width: 18px; margin-right: 10px;">
+            Continue with Google
+        </a>
+    </div>
+    <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+    <p style="font-size: 0.9rem;">New to ComputerStore?</p>
+    <a href="{% url 'signup' %}" style="display: block; text-align: center; padding: 10px; border: 1px solid #adb1b8; border-radius: 4px; background: #e7e9ec; color: black; text-decoration: none; margin-top: 10px;">Create your ComputerStore account</a>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Select Delivery Location - ComputerStore{% endblock %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 40px auto; background: white; padding: 30px; border: 1px solid #ddd; border-radius: 8px;">
+    <h1 style="font-size: 1.8rem; margin-bottom: 20px;">Choose your location</h1>
+    <p style="font-size: 0.9rem; color: #565959; margin-bottom: 20px;">Delivery options and speeds may vary by location.</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px;">Country</label>
+            <select name="country" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #adb1b8;">
+                <option value="United States" {% if request.session.location.country == 'United States' %}selected{% endif %}>United States</option>
+                <option value="Canada" {% if request.session.location.country == 'Canada' %}selected{% endif %}>Canada</option>
+                <option value="United Kingdom" {% if request.session.location.country == 'United Kingdom' %}selected{% endif %}>United Kingdom</option>
+                <option value="Germany" {% if request.session.location.country == 'Germany' %}selected{% endif %}>Germany</option>
+                <option value="France" {% if request.session.location.country == 'France' %}selected{% endif %}>France</option>
+                <option value="Japan" {% if request.session.location.country == 'Japan' %}selected{% endif %}>Japan</option>
+                <option value="Australia" {% if request.session.location.country == 'Australia' %}selected{% endif %}>Australia</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px;">State/Province/Region</label>
+            <input type="text" name="state" value="{{ request.session.location.state|default:'' }}" placeholder="e.g. California" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #adb1b8; box-sizing: border-box;">
+        </div>
+
+        <button type="submit" class="btn-store" style="width: 100%; padding: 10px;">Done</button>
+    </form>
+</div>
+{% endblock %}

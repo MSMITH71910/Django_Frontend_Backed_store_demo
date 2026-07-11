@@ -1,0 +1,56 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Return or Replace - ComputerStore{% endblock %}
+
+{% block content %}
+<div style="background: white; padding: 40px; border-radius: 8px; max-width: 800px; margin: 0 auto;">
+    <h1>Return or Replace Items</h1>
+    <p>Select the item you would like to return or replace from Order #{{ order.id }}.</p>
+
+    <form method="post" style="margin-top: 30px;">
+        {% csrf_token %}
+        {% for item in order.items.all %}
+            <div style="border: 1px solid #ddd; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                <div style="display: flex; align-items: center;">
+                    <input type="radio" name="item_id" value="{{ item.id }}" required style="margin-right: 15px;">
+                    <div style="width: 80px;">
+                        {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="max-width: 100%;">
+                        {% endif %}
+                    </div>
+                    <div style="margin-left: 20px; flex: 1;">
+                        <h3>{{ item.product.name }}</h3>
+                        <p>Qty: {{ item.quantity }} | Price: ${{ item.price }}</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px; padding-left: 35px;">
+                    <label style="display: block; margin-bottom: 10px;"><b>Reason for return:</b></label>
+                    <select name="reason" style="width: 100%; padding: 8px; border-radius: 4px;">
+                        <option>Choose a reason...</option>
+                        <option>Bought by mistake</option>
+                        <option>Better price available</option>
+                        <option>Performance or quality not adequate</option>
+                        <option>Incompatible or not useful</option>
+                        <option>Item arrived too late</option>
+                        <option>Missing parts or accessories</option>
+                        <option>Both box and item are damaged</option>
+                        <option>Wrong item was sent</option>
+                        <option>Item is defective or doesn't work</option>
+                    </select>
+                </div>
+
+                <div style="margin-top: 20px; padding-left: 35px; display: flex; gap: 20px;">
+                    <label><input type="radio" name="action" value="return" checked> Return for refund</label>
+                    <label><input type="radio" name="action" value="replace"> Replace with same item</label>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div style="margin-top: 30px; text-align: right;">
+            <a href="{% url 'order_history' %}" style="margin-right: 20px; color: #007185; text-decoration: none;">Cancel</a>
+            <button type="submit" class="btn-store" style="padding: 10px 30px;">Continue</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

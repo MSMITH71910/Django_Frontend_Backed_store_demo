@@ -1,0 +1,42 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Track Package - ComputerStore{% endblock %}
+
+{% block content %}
+<div style="background: white; padding: 40px; border-radius: 8px; max-width: 800px; margin: 0 auto;">
+    <h1>Track Package</h1>
+    <div style="margin: 20px 0; padding: 20px; background: #f3f3f3; border-radius: 4px;">
+        <h3>Order #{{ order.id }}</h3>
+        <p>Status: <b style="color: #007600;">{{ order.status }}</b></p>
+        <p>Delivery Estimate: <b>Tomorrow by 10 PM</b></p>
+    </div>
+
+    <div style="position: relative; padding: 20px 0;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <span>Ordered</span>
+            <span>Shipped</span>
+            <span>Out for delivery</span>
+            <span>Arriving</span>
+        </div>
+        <div style="height: 10px; background: #ddd; border-radius: 5px; position: relative;">
+            <div style="height: 100%; background: #00a8e1; border-radius: 5px; width: 25%;"></div>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px;">
+        <h3>Items in this shipment</h3>
+        {% for item in order.items.all %}
+            <div style="display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee;">
+                <div style="width: 60px;">
+                    {% if item.product.image %}
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="max-width: 100%;">
+                    {% endif %}
+                </div>
+                <div style="margin-left: 15px;">
+                    {{ item.product.name }} (Qty: {{ item.quantity }})
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

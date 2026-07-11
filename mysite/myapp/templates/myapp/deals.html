@@ -1,0 +1,88 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Today's Deals - ComputerStore{% endblock %}
+
+{% block content %}
+<style>
+    .highlight {
+        background-color: yellow;
+        font-weight: bold;
+    }
+    .product-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+    .product-item {
+        background: white;
+        padding: 15px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        display: flex;
+        flex-direction: column;
+    }
+    .product-image-container img {
+        max-width: 100%;
+        height: auto;
+    }
+    .product-title {
+        font-size: 1.1rem;
+        margin: 10px 0;
+        text-decoration: none;
+        color: #007185;
+    }
+    .product-price {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .prime-badge {
+        color: #00A8E1;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .btn-store {
+        background: #FFD814;
+        border: 1px solid #FCD200;
+        border-radius: 20px;
+        padding: 8px;
+        cursor: pointer;
+        margin-top: auto;
+    }
+</style>
+<div style="background: white; padding: 20px; border-radius: 4px;">
+    <h1>Today's Deals</h1>
+    <p>Check back every day for new deals!</p>
+    <div class="product-list">
+        {% for product in products %}
+            <div class="product-item">
+                <div class="product-image-container">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name|striptags }}">
+                    {% else %}
+                        <div style="color: #ccc;">No image</div>
+                    {% endif %}
+                </div>
+                <a href="{% url 'product_detail' product.slug %}" class="product-title">{{ product.name|safe }}</a>
+                
+                <div class="product-price">
+                    <span>$</span>{{ product.price }}
+                </div>
+
+                <div class="prime-badge">✓ prime</div>
+                
+                <div style="font-size: 0.8rem; color: #565959; margin-bottom: 10px;">
+                    FREE delivery <b>Tomorrow</b>
+                </div>
+
+                <a href="{% url 'add_to_cart' product.slug %}" class="btn-store" style="display: block; text-align: center; text-decoration: none;">Add to Cart</a>
+            </div>
+        {% empty %}
+            <div style="grid-column: 1 / -1; padding: 40px; text-align: center; border: 1px dashed #ccc;">
+                <h3>No deals available at the moment.</h3>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

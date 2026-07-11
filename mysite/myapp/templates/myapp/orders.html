@@ -1,0 +1,57 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Your Orders - ComputerStore{% endblock %}
+
+{% block content %}
+<div style="background: white; padding: 20px; border-radius: 4px;">
+    <h1>Your Orders</h1>
+    <div style="margin-top: 20px;">
+        {% for order in orders %}
+            <div style="border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px;">
+                <div style="background: #f3f3f3; padding: 15px; border-bottom: 1px solid #ddd; border-radius: 8px 8px 0 0; display: flex; justify-content: space-between; font-size: 0.9rem;">
+                    <div>
+                        <span style="color: #565959; text-transform: uppercase;">Order Placed</span><br>
+                        {{ order.created_at|date:"F d, Y" }}
+                    </div>
+                    <div>
+                        <span style="color: #565959; text-transform: uppercase;">Total</span><br>
+                        ${{ order.total_amount }}
+                    </div>
+                    <div>
+                        <span style="color: #565959; text-transform: uppercase;">Ship To</span><br>
+                        <span style="color: #007185;">{{ order.user.username }}</span>
+                    </div>
+                    <div>
+                        <span style="color: #565959; text-transform: uppercase;">Order # {{ order.id }}</span><br>
+                        <span style="color: #007185;">View order details</span>
+                    </div>
+                </div>
+                <div style="padding: 20px;">
+                    <h3 style="margin-bottom: 15px;">Status: <span style="color: #007600;">{{ order.status }}</span></h3>
+                    {% for item in order.items.all %}
+                        <div style="display: flex; margin-bottom: 15px;">
+                            <div style="width: 80px;">
+                                {% if item.product.image %}
+                                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="max-width: 100%;">
+                                {% endif %}
+                            </div>
+                            <div style="margin-left: 15px;">
+                                <a href="#" style="color: #007185; text-decoration: none;">{{ item.product.name }}</a>
+                                <p style="font-size: 0.9rem; margin-top: 5px;">Qty: {{ item.quantity }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div style="margin-top: 20px;">
+                        <a href="{% url 'track_package' order.id %}" class="btn-store" style="padding: 5px 15px; text-decoration: none; display: inline-block;">Track package</a>
+                        <a href="{% url 'return_replace' order.id %}" style="padding: 5px 15px; border: 1px solid #adb1b8; border-radius: 4px; background: #fff; margin-left: 10px; text-decoration: none; display: inline-block; color: black;">Return or replace items</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div style="padding: 40px; text-align: center;">
+                <h2>You haven't placed any orders yet.</h2>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

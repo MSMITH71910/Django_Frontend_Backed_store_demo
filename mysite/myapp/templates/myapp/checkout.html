@@ -1,0 +1,32 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Checkout - ComputerStore{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 40px auto; background: white; padding: 30px; border: 1px solid #ddd; border-radius: 8px;">
+    <h1>Checkout</h1>
+    <div style="margin-top: 20px;">
+        <h3>Order Summary</h3>
+        {% for item in cart.items.all %}
+            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                <span>{{ item.quantity }} x {{ item.product.name }}</span>
+                <span>${{ item.product.price }}</span>
+            </div>
+        {% endfor %}
+        <div style="display: flex; justify-content: space-between; padding: 20px 0; font-size: 1.2rem; font-weight: bold;">
+            <span>Order Total:</span>
+            <span>${{ cart.total_price }}</span>
+        </div>
+    </div>
+    
+    <div style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px;">
+        <h3>Shipping Address</h3>
+        <p>123 Demo St, Engineering City, 54321</p>
+        
+        <form method="post" style="margin-top: 30px;">
+            {% csrf_token %}
+            <button type="submit" class="btn-store" style="width: 100%; padding: 15px; font-size: 1.1rem;">Place your order</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

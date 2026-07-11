@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}computerstore.com. Spend less. Smile more.{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'myapp/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div class="nav-main">
+            <a href="{% url 'index' %}" class="nav-logo">computerstore<span>.com</span></a>
+            
+            <a href="{% url 'set_location' %}" class="nav-item" style="text-decoration: none; color: white;">
+                <span>Deliver to</span>
+                <b>
+                    {% if request.session.location %}
+                        {% if request.session.location.state %}
+                            {{ request.session.location.state }}, {{ request.session.location.country }}
+                        {% else %}
+                            {{ request.session.location.country }}
+                        {% endif %}
+                    {% else %}
+                        United States
+                    {% endif %}
+                </b>
+            </a>
+
+            <div class="nav-search">
+                <input type="text" placeholder="Search ComputerStore">
+                <button class="nav-search-btn">🔍</button>
+            </div>
+
+            <div class="nav-right">
+                <div class="nav-item">
+                    {% if user.is_authenticated %}
+                        <span>Hello, {{ user.username }}</span>
+                        <div style="display: flex; gap: 10px;">
+                            <a href="{% url 'profile' %}" style="color: white; text-decoration: none;"><b>Account</b></a>
+                            {% if user.is_staff %}
+                                <a href="{% url 'dashboard' %}" style="color: #febd69; text-decoration: none;"><b>Dashboard</b></a>
+                            {% endif %}
+                            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" style="background: none; border: none; color: white; cursor: pointer; padding: 0; font-weight: bold; font-family: inherit; font-size: 0.9rem;">Sign Out</button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <span>Hello, sign in</span>
+                        <a href="{% url 'login' %}" style="color: white; text-decoration: none;"><b>Account & Lists</b></a>
+                    {% endif %}
+                </div>
+                <a href="{% url 'order_history' %}" class="nav-item" style="color: white; text-decoration: none;">
+                    <span>Returns</span>
+                    <b>& Orders</b>
+                </a>
+                <a href="{% url 'view_cart' %}" class="nav-item" style="color: white; text-decoration: none;">
+                    <b>Cart</b>
+                </a>
+            </div>
+        </div>
+        <div class="nav-belt">
+            <a href="{% url 'index' %}">All Products</a>
+            <a href="{% url 'deals' %}">Today's Deals</a>
+            <a href="{% url 'customer_service' %}">Customer Service</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'about' %}">About</a>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <a href="#" class="back-to-top">Back to top</a>
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 1996-2026, computerstore.com, Inc. or its affiliates</p>
+            <p>Designed by Michael R. Smith</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Contact Us - ComputerStore{% endblock %}
+
+{% block content %}
+<div style="background: white; padding: 20px; border-radius: 4px; max-width: 600px; margin: 0 auto;">
+    <h1>Contact Us</h1>
+    <form style="display: flex; flex-direction: column; gap: 15px;">
+        <div>
+            <label style="display: block; font-weight: bold;">Name</label>
+            <input type="text" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
+        <div>
+            <label style="display: block; font-weight: bold;">Email</label>
+            <input type="email" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
+        <div>
+            <label style="display: block; font-weight: bold;">Message</label>
+            <textarea style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; height: 100px;"></textarea>
+        </div>
+        <button type="button" class="btn-store" style="width: 100%;">Send Message</button>
+    </form>
+</div>
+{% endblock %}
